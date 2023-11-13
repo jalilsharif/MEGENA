@@ -13,6 +13,6 @@ For installation for developmental github version:
 
 library(devtools);
 
-install_github("songw01/MEGENA");
+install_github("jalilsharif/MEGENA");
 
 

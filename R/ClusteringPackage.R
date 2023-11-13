@@ -420,7 +420,7 @@ get.DegreeHubStatistic <- function(subnetwork,n.perm = 100,doPar = FALSE,n.core 
   split.fact <- factor(split.fact[1:n.perm])
   split.ind <- split(1:n.perm,split.fact)
 
-  k.random <- foreach (ind = split.ind, .combine = 'c') %dopar%
+  k.random <- foreach (ind = split.ind, .combine = 'c', .packages = "MEGENA") %dopar%
    {
     k.rand <- c()
     for (n in ind)
@@ -1030,6 +1030,9 @@ output.figures = FALSE)
 	 gene.pvalue <- lapply(sigModule.stat,function(x) {vec <- -log(x$pvalue);names(vec) <- as.character(x[[1]]);return(vec)});names(gene.pvalue) <- NULL
 	 gene.pvalue <- do.call(c,gene.pvalue);
 	 gene.pvalue <- gene.pvalue[intersect(names(gene.pvalue),all.genes)]
+	 cat(length(gene.pvalue))
+	 gene.pvalue <- gene.pvalue[as.vector(na.omit(names(gene.pvalue)))]
+	 cat(length(gene.pvalue))	
 	 loglik.matrix[match(names(gene.pvalue),all.genes),i] <- gene.pvalue
 	}
 	loglik.matrix[is.na(loglik.matrix)] <- 0;
